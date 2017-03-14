@@ -1,0 +1,51 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+use App\Fuzzy;
+use Carbon\Carbon;
+
+class InsertDefaultFuzzyrangesValue extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $variant = [
+            Fuzzy::LOW,
+            Fuzzy::MID,
+            Fuzzy::HIGH,
+        ];
+
+        $now = Carbon::now();
+
+        foreach ($variant as $var) {
+            DB::insert('INSERT INTO fuzzyranges (
+                state,
+                min,
+                max,
+                updated_at,
+                created_at
+            ) VALUES (?, ?, ?, ?, ?)', [
+                $var,
+                0,
+                1000000,
+                $now,
+                $now
+            ]);
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+    }
+}
