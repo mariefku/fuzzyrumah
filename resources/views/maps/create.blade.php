@@ -19,16 +19,16 @@
     <div class="form-group">
       <label for="kategoriLokasi" class="control-label">Kategori Lokasi</label>
           <select class="form-control" id="kategoriLokasi" name="kategori_lokasi">
-          <option value="Rumah_Ibadah" {{ ("Rumah_Ibadah" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Rumah_Ibadah</option>
-          <option value="Sekolah_SD" {{ ("Sekolah_SD" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah_SD</option>
-          <option value="Sekolah_SMP" {{ ("Sekolah_SMP" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah_SMP</option>
-          <option value="Sekolah_SMA" {{ ("Sekolah_SMA" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah_SMA</option>
-          <option value="Pasar_Tradisional" {{ ("Pasar_Tradisional" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Pasar_Tradisional</option>
-          <option value="Pasar_Modern" {{ ("Pasar_Modern" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Pasar_Modern</option>
-          <option value="Jalan_Raya" {{ ("Jalan_Raya" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Jalan_Raya</option>
-          <option value="Jalan_Tol" {{ ("Jalan_Tol" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Jalan_Tol</option>
+          <option value="Rumah_Ibadah" {{ ("Rumah_Ibadah" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Rumah Ibadah</option>
+          <option value="Sekolah_SD" {{ ("Sekolah_SD" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah SD</option>
+          <option value="Sekolah_SMP" {{ ("Sekolah_SMP" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah SMP</option>
+          <option value="Sekolah_SMA" {{ ("Sekolah_SMA" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Sekolah SMA</option>
+          <option value="Pasar_Tradisional" {{ ("Pasar_Tradisional" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Pasar Tradisional</option>
+          <option value="Pasar_Modern" {{ ("Pasar_Modern" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Pasar Modern</option>
+          <option value="Tempat_Makan" {{ ("Jalan_Raya" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Rumah Makan/Caffe/Restoran</option>
+          <option value="Jalan_Tol" {{ ("Jalan_Tol" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Jalan Tol</option>
           <option value="Universitas" {{ ("Universitas" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Universitas</option>
-          <option value="Kantor_Pemerintahan" {{ ("Kantor_Pemerintahan" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Kantor_Pemerintahan</option>
+          <option value="Kantor_Pemerintahan" {{ ("Kantor_Pemerintahan" == old("kategori_lokasi")) ? 'selected="selected"' : '' }}>Kantor Pemerintahan</option>
         </select>
     </div>
     <div class="form-group">
