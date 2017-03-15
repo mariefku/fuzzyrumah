@@ -48,16 +48,14 @@ class RumahController extends Controller
             'luasTanah' => 'required|numeric|min:0',
         ]);
         
-        $hasilLokasi = count($request->lokasiTanah);
-
         $rumah = new Rumah();
         $rumah->njop_rumah = $request->njopRumah;
         $rumah->kondisi_rumah = $request->kondisiRumah;
         $rumah->usia_rumah = $request->usiaRumah;
         $rumah->njop_tanah = $request->njopTanah;
         $rumah->luas_rumah = $request->luasRumah;
-        $rumah->lokasi_tanah = $hasilLokasi;
-        $rumah->nama_lokasi = json_encode($request->lokasiTanah, JSON_PRETTY_PRINT);
+        $rumah->lokasi_tanah = $request->lokasiTanah;
+        $rumah->nama_lokasi = json_encode($request->namaLokasi, JSON_PRETTY_PRINT);
         $rumah->luas_tanah = $request->luasTanah;
         $rumah->save();
 
