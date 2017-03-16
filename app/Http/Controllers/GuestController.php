@@ -17,8 +17,9 @@ class GuestController extends Controller
 
     public function showRumah($id)
     {
+        $markers = Markerlokasi::get();
         $rumah = Rumah::find($id);
-        return view('guest.show')->with('rumah', $rumah);
+        return view('guest.show')->with('rumah', $rumah)->with('markers', $markers);
     }
 
     public function createFormRumah()
@@ -36,6 +37,7 @@ class GuestController extends Controller
             'njopTanah' => 'required|numeric|min:0',
             'luasRumah' => 'required|numeric|min:0',
             'luasTanah' => 'required|numeric|min:0',
+
         ]);
         
         $rumah = new Rumah();
@@ -47,6 +49,8 @@ class GuestController extends Controller
         $rumah->lokasi_tanah = $request->lokasiTanah;
         $rumah->nama_lokasi = json_encode($request->namaLokasi, JSON_PRETTY_PRINT);
         $rumah->luas_tanah = $request->luasTanah;
+        $rumah->lat = $request->lat;
+        $rumah->lng = $request->lng;
         $rumah->save();
 
 

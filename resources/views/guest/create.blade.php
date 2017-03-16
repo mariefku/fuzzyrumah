@@ -68,20 +68,22 @@
      <label for="" class="control-label">(500.000 - 5.000.000)</label>
   </div>
   <div class="form-group">
-    <label for="tanahLokasi" class="col-sm-2 control-label">Pilih Lokasi</label>
-    <div class="col-sm-5">
+    <label for="tanahLokasi" class="col-sm-2 control-label">Lokasi</label>
+    <div class="col-sm-5" id="alamat_lokasi_wrapper">
       <textarea name="" id="alamat_lokasi" cols="30" rows="5" class="form-control" readonly></textarea>
     </div>
 
-    <input type="text" id="lokas_tanah" name="lokasiTanah">
-    <input type="text" id="nama_lokasi" name="namaLokasi">
+    <input type="hidden" id="lokas_tanah" name="lokasiTanah">
+    <input type="hidden" id="nama_lokasi" name="namaLokasi">
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
 
-    <div class="col-sm-2" style="padding: 0px;">
+    <div class="col-sm-2" id="pilih_lokasi_wrapper">
       <!-- Button trigger modal -->
 
-      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+      <button type="button" class="btn btn-default" data-toggle="modal" id="pilih_lokasi" data-target="#myModal">
         <img src="{{ asset('maps.png') }}" alt="" style="width: 40px;height: auto;">
-        Pilih Lokasi
+        <div id="pilih_lokasi_text">Pilih Lokasi</div>
       </button>
     </div>
   </div>
@@ -121,6 +123,8 @@
 </div>
 
 <script>
+jQuery('#alamat_lokasi_wrapper').hide();
+
 var show_all_value = false;
 var
     on = {
@@ -175,8 +179,6 @@ function onMethodTypeChange(value){
     updateMarkersIcons();
   }
 };
-
-
 
 window.onload = function init() {
 
@@ -285,6 +287,10 @@ window.onload = function init() {
 
             infoWindow.close();
         };
+
+
+        jQuery('#lat').val(markerCenter.getPosition().lat());
+        jQuery('#lng').val(markerCenter.getPosition().lng());
         jQuery('#lokas_tanah').val(output.length);
         jQuery('#nama_lokasi').val(output);
     });
@@ -344,8 +350,14 @@ window.onload = function init() {
 
             infoWindow.close();
         };
+
+        jQuery('#lat').val(markerCenter.getPosition().lat());
+        jQuery('#lng').val(markerCenter.getPosition().lng());
         jQuery('#lokas_tanah').val(output.length);
         jQuery('#nama_lokasi').val(output);
+        jQuery('#alamat_lokasi_wrapper').show();
+        jQuery('#pilih_lokasi_wrapper').css('padding','0px');
+        jQuery('#pilih_lokasi_text').html('Ganti Lokasi');
     });
 
     function codeLatLng(value)
