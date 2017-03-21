@@ -163,7 +163,6 @@
 </form>
 
 <script>
-var show_all_value = false;
 var
     on = {
           labelOrigin: new google.maps.Point(11, 25),
@@ -236,132 +235,7 @@ window.onload = function init() {
     // attach circle to marker
     circle.bindTo('center', markerCenter, 'position');
 
-    var
-      // get the Bounds of the circle
-      bounds = circle.getBounds(),
-      // Note spans
-      locations =  {!! json_encode($markers) !!},
-      marker=[],
-      note,
-      jml_true=0,
-      jml_false=0,
-      i,
-      flags = [], output = [];
-     
-      for (i = 0; i < locations.length; i++) {
-        marker[i] = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i].lat, locations[i].lng),
-            //title: String(locations[i].nama_lokasi),
-            //label: {
-            //  color: 'black',
-            //  fontWeight: 'regular',
-            //  text: String(locations[i].nama_lokasi),
-            //},
-            //labelClass: "labels",
-            icon: off,
-            map: map
-        });
-        
-        marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-
-        var infoWindow = new google.maps.InfoWindow;
-        google.maps.event.addListener(marker[i], 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(locations[i].nama_lokasi);
-                infoWindow.open(map, marker[i]);
-            }
-        })(marker, i));
-
-      };
-
     codeLatLng(markerCenter.getPosition());
-
-    // get some latLng object and Question if it's contained in the circle:
-    google.maps.event.addListener(markerCenter, 'dragend', function() {
-        var flags = [], output = [];
-        var jml_true=0;
-        var jml_false=0;
-        for (i = 0; i < locations.length; i++) {
-            
-            marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-
-            if (isWithinBound(marker[i].getPosition(), markerCenter.getPosition())){
-              if( flags[locations[i].kategori_lokasi]) continue;
-              flags[locations[i].kategori_lokasi] = true;
-              output.push(locations[i].kategori_lokasi);
-            }
-
-            infoWindow.close();
-        };
-
-
-        jQuery('#lat').val(markerCenter.getPosition().lat());
-        jQuery('#lng').val(markerCenter.getPosition().lng());
-        jQuery('#lokas_tanah').val(output.length);
-        jQuery('#nama_lokasi').val(output);
-    });
-
-    function isWithinBound (marker, center) {
-      var location = google.maps.geometry.spherical.computeDistanceBetween(marker,center)
-      return radius > location;
-    }
-
-
-    function updateMarkersIcons(){
-      for (var i = 0; i < locations.length; i++) {
-        marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-      }
-    }
-
-    window.updateMarkersIcons = updateMarkersIcons;
-
-    google.maps.event.addListener(markerCenter, 'click', function() {
-        infoCenter.open(map, markerCenter);
-    });
-
-    google.maps.event.addListener(markerCenter, 'drag', function() {
-        infoCenter.close();
-    });
-
-    $('#myModal').on('shown.bs.modal', function () {
-      google.maps.event.trigger(map, 'resize');
-      map.setCenter(markerCenter.getPosition());
-      for (i = 0; i < locations.length; i++) {
-        marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-      }
-    });
-
-    $('#show_all_marker').click( function () {
-      google.maps.event.trigger(map, 'resize');
-      for (i = 0; i < locations.length; i++) {
-        marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-      }
-    });
-
-    $('#btn_selesai').click( function () {
-      codeLatLng(markerCenter.getPosition());
-
-        var flags = [], output = [];
-        var jml_true=0;
-        var jml_false=0;
-        for (i = 0; i < locations.length; i++) {
-            
-            marker[i].setIcon( isWithinBound(marker[i].getPosition(), markerCenter.getPosition()) ? on: off);
-
-            if (isWithinBound(marker[i].getPosition(), markerCenter.getPosition())){
-              if( flags[locations[i].kategori_lokasi]) continue;
-              flags[locations[i].kategori_lokasi] = true;
-              output.push(locations[i].kategori_lokasi);
-            }
-
-            infoWindow.close();
-        };
-        
-        jQuery('#lat').val(markerCenter.getPosition().lat());
-        jQuery('#lng').val(markerCenter.getPosition().lng());
-        jQuery('#lokas_tanah').val(output.length);
-        jQuery('#nama_lokasi').val(output);
-    });
 
     function codeLatLng(value)
     {

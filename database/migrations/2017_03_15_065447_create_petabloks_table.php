@@ -14,6 +14,9 @@ class CreatePetabloksTable extends Migration
     {
         Schema::create('petabloks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama_area');
+            $table->string('area_lokasi');
+            $table->integer('harga_area' 11);
             $table->timestamps();
         });
     }

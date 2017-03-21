@@ -7,6 +7,7 @@ use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use App\Http\Requests;
 use App\Rumah;
 use App\Markerlokasi;
+use App\Petablok;
 
 class GuestController extends Controller
 {
@@ -25,7 +26,8 @@ class GuestController extends Controller
     public function createFormRumah()
     {
         $markers = Markerlokasi::get();
-        return view('guest.create')->with('markers', $markers);
+        $polygons = Petablok::get();
+        return view('guest.create')->with('markers', $markers)->with('polygons', $polygons);
     }
 
     public function createRumah(Request $request)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Rumah;
+use App\Markerlokasi;
 
 class RumahController extends Controller
 {
@@ -28,13 +29,15 @@ class RumahController extends Controller
 
     public function showRumah($id)
     {
+        $markers = Markerlokasi::get();
         $rumah = Rumah::find($id);
-        return view('rumah.show')->with('rumah', $rumah);
+        return view('rumah.show')->with('rumah', $rumah)->with('markers', $markers);
     }
 
     public function createFormRumah()
     {
-        return view('rumah.create');
+         $markers = Markerlokasi::get();
+        return view('rumah.create')->with('markers', $markers);
     }
 
     public function createRumah(Request $request)

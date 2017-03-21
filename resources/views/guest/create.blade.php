@@ -61,19 +61,12 @@
   </div>
   <hr>
   <div class="form-group">
-    <label for="tanahNjop" class="col-sm-2 control-label">Harga NJOP Tanah</label>
-    <div class="col-sm-5">
-      <input type="text" class="form-control" id="tanahNjop" placeholder="Harga NJOP Tanah" name="njopTanah" value="{{ old('njopTanah') }}">
-    </div>
-     <label for="" class="control-label">(500.000 - 5.000.000)</label>
-  </div>
-  <div class="form-group">
     <label for="tanahLokasi" class="col-sm-2 control-label">Lokasi</label>
     <div class="col-sm-5" id="alamat_lokasi_wrapper">
-      <textarea name="" id="alamat_lokasi" cols="30" rows="5" class="form-control" readonly></textarea>
+      <textarea name="" id="alamat_lokasi" cols="30" rows="5" class="form-control" style="resize: none;" readonly></textarea>
     </div>
 
-    <input type="hidden" id="lokas_tanah" name="lokasiTanah">
+    <input type="hidden" id="lokasi_tanah" name="lokasiTanah">
     <input type="hidden" id="nama_lokasi" name="namaLokasi">
     <input type="hidden" id="lat" name="lat">
     <input type="hidden" id="lng" name="lng">
@@ -85,6 +78,12 @@
         <img src="{{ asset('maps.png') }}" alt="" style="width: 40px;height: auto;">
         <div id="pilih_lokasi_text">Pilih Lokasi</div>
       </button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="tanahNjop" class="col-sm-2 control-label">Harga NJOP Tanah</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="tanahNjop" placeholder="Harga NJOP Tanah" name="njopTanah" value="" readonly>
     </div>
   </div>
   <div class="form-group">
@@ -180,7 +179,8 @@ function onMethodTypeChange(value){
   }
 };
 
-window.onload = function init() {
+window.onload = function init()
+{
 
     var
         contentCenter = '<span class="infowin">Center Marker (draggable)</span>',
@@ -228,8 +228,28 @@ window.onload = function init() {
             strokeOpacity: .7,
             strokeWeight: .8
         });
-    // attach circle to marker
-    circle.bindTo('center', markerCenter, 'position');
+      // attach circle to marker
+      circle.bindTo('center', markerCenter, 'position');
+
+      @foreach ($polygons as $polygon)
+        // Polygon Coordinates
+        var triangleCoords = [{!! $polygon->area_lokasi !!}];
+        // Styling & Controls
+        myPolygon{!! $polygon->id !!} = new google.maps.Polygon({
+          paths: triangleCoords,
+          draggable: false, // turn off if it gets annoying
+          editable: false,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+
+        myPolygon{!! $polygon->id !!}.setMap(map);
+        
+
+      @endforeach
 
     var
       // get the Bounds of the circle
@@ -288,10 +308,19 @@ window.onload = function init() {
             infoWindow.close();
         };
 
+        @foreach ($polygons as $polygon)
+          isinthepolygon(myPolygon{!! $polygon->id !!}, markerCenter.getPosition());
+
+          if(isinthepolygon(myPolygon{!! $polygon->id !!}, markerCenter.getPosition()))
+          {
+            jQuery('#tanahNjop').val({!! $polygon->harga_area !!});
+          };
+        @endforeach
+
 
         jQuery('#lat').val(markerCenter.getPosition().lat());
         jQuery('#lng').val(markerCenter.getPosition().lng());
-        jQuery('#lokas_tanah').val(output.length);
+        jQuery('#lokasi_tanah').val(output.length);
         jQuery('#nama_lokasi').val(output);
     });
 
@@ -351,6 +380,15 @@ window.onload = function init() {
             infoWindow.close();
         };
 
+        @foreach ($polygons as $polygon)
+          isinthepolygon(myPolygon{!! $polygon->id !!}, markerCenter.getPosition());
+
+          if(isinthepolygon(myPolygon{!! $polygon->id !!}, markerCenter.getPosition()))
+          {
+            jQuery('#tanahNjop').val({!! $polygon->harga_area !!});
+          };
+        @endforeach
+
         jQuery('#lat').val(markerCenter.getPosition().lat());
         jQuery('#lng').val(markerCenter.getPosition().lng());
         jQuery('#lokas_tanah').val(output.length);
@@ -383,6 +421,15 @@ window.onload = function init() {
                 alert("Geocoder failed due to: " + status);
             }
         });
+    }
+
+    function isinthepolygon(myPolygon,marker){
+
+      var lat = marker.lat();
+      var lng = marker.lng();
+
+      var isWithinPolygon = myPolygon.containsLatLng(lat,lng);
+      return isWithinPolygon;
     }
 
 };

@@ -25,7 +25,8 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCzX9p40w9AMetlyG_qUi_9rw0ifj9rhk&libraries=geometry,places"></script>
-
+    <script type="text/javascript" src=" {{ asset('js/maps.google.polygon.containsLatLng.js') }} "></script>
+    
     <style>
       body {
         padding-bottom: 20px;

@@ -80,3 +80,15 @@ Route::get('/maps', 'MapController@index');
 Route::get('/maps/add', 'MapController@add');
 Route::post('/maps/add', 'MapController@save');
 Route::get('/maps/show', 'MapController@show');
+
+Route::get('/polygon', 'PetablokController@index');
+Route::get('/polygon/add', 'PetablokController@add');
+Route::post('/polygon/add', 'PetablokController@save');
+Route::get('/polygon/show/{id}', 'PetablokController@show');
+Route::get('/polygon/show', 'PetablokController@show');
+
+Route::get('/polygons', 'PetablokController@index');
+Route::get('/polygons/add', 'PetablokController@add');
+Route::post('/polygons/add', 'PetablokController@save');
+Route::get('/polygons/show/{id}', 'PetablokController@show');
+Route::get('/polygons/show', 'PetablokController@show');
